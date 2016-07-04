@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Copyright 1999-2011 Alibaba Group.
+ -  
+ - Licensed under the Apache License, Version 2.0 (the "License");
+ - you may not use this file except in compliance with the License.
+ - You may obtain a copy of the License at
+ -  
+ -      http://www.apache.org/licenses/LICENSE-2.0
+ -  
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:consumer retries="0" check="true" timeout="30000"/>
+	<!-- 一般需要修改; name：应用名，全局唯一，小写；address:zookeeper地址-->
+
+	<dubbo:reference id="appFacade" interface="com.sinoservices.doppler.facade.AppFacade"/>
+	<dubbo:reference id="serviceFacade" interface="com.sinoservices.doppler.facade.ServiceFacade"/>
+	<dubbo:reference id="traceFacade" interface="com.sinoservices.doppler.facade.TraceFacade"/>
+	<dubbo:reference id="requestFacade" interface="com.sinoservices.doppler.facade.RequestFacade"/>
+</beans>

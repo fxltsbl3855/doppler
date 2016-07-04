@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byName">
+    <import resource="classpath*:hydra-manager-db.xml"/>
+    <context:property-placeholder location="classpath:hydra-manager.properties"/>
+    <dubbo:application name="${dubbo.application.name}" owner="${dubbo.application.owner}"/>
+    <dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}"/>
+    <!-- 用dubbo协议在端口暴露服务 -->
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
+    <bean id="leaderService" class="com.jd.bdp.hydra.dubbomonitor.provider.impl.LeaderServiceImpl">
+        <property name="appService" ref="appService"/>
+        <property name="seedService" ref="seedService"/>
+        <property name="serviceService" ref="serviceService"/>
+    </bean>
+    <dubbo:service interface="com.jd.bdp.hydra.dubbomonitor.LeaderService" ref="leaderService">
+    </dubbo:service>
+
+</beans>

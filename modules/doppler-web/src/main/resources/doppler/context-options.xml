@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:op="http://www.sinoservices.com/schema/options"
+	xsi:schemaLocation="
+	http://www.sinoservices.com/schema/options http://www.sinoservices.com/schema/sns-options-1.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+<bean class="com.sinoservices.components.options.impl.OptionsRegistry">
+		<property name="optionsSources">
+			<set>
+				<!-- 所属订单 -->
+				<op:ConstantOptions type="DEMO_TYPE">
+					<op:option key="1" value="选项1"></op:option>
+					<op:option key="2" value="选项2"></op:option>
+					<op:option key="3" value="选项3"></op:option>
+					<op:option key="4" value="选项4"></op:option>
+					<op:option key="5" value="选项5"></op:option>
+					<op:option key="6" value="选项6"></op:option>
+					<op:option key="7" value="选项7"></op:option>
+				</op:ConstantOptions>
+			</set>
+		</property>
+	</bean>
+</beans>

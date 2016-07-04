@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sinoservices</groupId>
+    <artifactId>sinoservices-common</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>SINOSERVICES COMMON</name>
+
+    <properties>
+
+        <slf4j_version>1.6.2</slf4j_version>
+        <logback_version>1.0.6</logback_version>
+        <gson_version>2.1</gson_version>
+        <metrics_version>3.0.1</metrics_version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.codahale.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>${metrics_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j_version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 配置远程发布到私服，mvn deploy -->
+    <distributionManagement>
+        <repository>
+            <id>thirdparty</id>
+            <url>http://192.168.0.109:8081/nexus/content/repositories/thirdparty/</url>
+        </repository>
+    </distributionManagement>
+</project>

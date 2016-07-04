@@ -1,0 +1,14 @@
+/* input, label positioning */
+.custom-checkbox,.custom-radio{position: relative;}
+.custom-checkbox input,.custom-radio input{position:absolute;left:6px;top:8px;margin:0;}
+.custom-checkbox label,.custom-radio label{display:block;position:relative;padding:5px 0 5px 30px;margin:5px 0;cursor:pointer;outline: none;}
+/* states */
+.custom-checkbox label{background:url(../images/checkbox.gif) no-repeat;}
+.custom-radio label{background:url(../images/radiobutton.gif) no-repeat;}
+.custom-checkbox label,.custom-radio label{background-position:-10px -12px;}
+.custom-checkbox label.hover,.custom-checkbox label.focus,.custom-radio label.hover,.custom-radio label.focus{background-position:-10px -112px;}
+.custom-checkbox label.checked,.custom-radio label.checked{background-position:-10px -212px;}
+.custom-checkbox label.checkedHover,.custom-checkbox label.checkedFocus{background-position:-10px -312px;}
+.custom-checkbox label.focus,.custom-radio label.focus{outline:1px dotted #ccc;}
+
+.form-horizontal .custom-checkbox,.form-horizontal .custom-radio{float: left;}

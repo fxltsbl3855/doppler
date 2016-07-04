@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/*
+ * @authors Coolia.Gong (Coolia.Gong@sinoservices.com)
+ * @date    2016-01-05 11:07:57
+ */
+body{font-family: 'microsoft yahei';}
+html { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; padding:60px 0 30px; overflow:hidden;}
+html,body { height:100%;}
+.header{height: 60px;background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #383b44 0, #2e2f34 100%) repeat scroll 0 0;background: #333\9;color: #fff;position:relative; margin-top:-60px;}
+.logo{height: 40px;line-height:40px;font-size:18px;padding:10px 20px;}
+.user-info{padding:15px 20px 15px 0;height: 30px;line-height: 30px;}
+.user-info span{margin-right: 20px;}
+.page-sidebar{width: 200px;border-right: 1px solid #000; position:relative; height:100%;overflow:auto;float: left;background: #444}
+.page-content { position:relative; overflow:auto; height:100%; background:#fff;}
+.status-bar {position:relative; height:30px;line-height: 30px; background: #333; clear:both;}
+.system-time{padding-right: 20px;color: #666;}
+.msg{padding-left: 20px;}
+.msg label{color:#f00;}
+.abnormal a{color: #fff;padding-left: 10px;}
+.padd{padding:15px;}
+.padd-t{padding:15px 0;}
+.bdtf{border-top: 1px solid #fff;}
+.bd-box{border: 1px solid #ddd;border-radius:5px;}
+.breadcrumb{margin: 0;border-bottom: 1px solid #ccc;border-radius: 0;}
+#toolbar .tit{font-size: 14px;font-weight: bold;color: #286090;}
+.blank15{height: 15px;visibility: hidden;clear: both;}
+.inquire_form label{height: 34px;line-height: 34px;padding:0;text-align: right;}
+.inquire_form .line{position: absolute;width: 100%;line-height: 34px; text-align: center;left: 0;z-index: 0}
+.inquire_form input{z-index: 10;position: relative;}
+.inquire_form .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){width: 100%;}
+.query label{width: 80px;text-align: right;display: inline-block;}
+.query .input-group .btn{border-radius: 4px;}

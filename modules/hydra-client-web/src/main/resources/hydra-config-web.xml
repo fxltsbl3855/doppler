@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--hydraService-->
+    <dubbo:reference id="hydraService" interface="com.jd.bdp.hydra.dubbomonitor.HydraService" check="false" timeout="5000"/>
+    <dubbo:reference id="leaderService" interface="com.jd.bdp.hydra.dubbomonitor.LeaderService" check="false" timeout="5000"/>
+
+
+    <bean id="transfer" class="com.sinoservices.trace.DefaultSyncTransferWeb">
+        <property name="hydraService" ref="hydraService"/>
+        <property name="leaderService" ref="leaderService"/>
+    </bean>
+
+    <bean id="tracer" class="com.sinoservices.trace.TracerWeb" factory-method="getTracer">
+        <property name="transfer" ref="transfer"/>
+    </bean>
+
+</beans>

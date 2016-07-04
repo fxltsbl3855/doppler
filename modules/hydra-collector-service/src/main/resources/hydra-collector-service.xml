@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright jd
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byName">
+
+    <!-- 选择存储方式为hbase -->
+    <import resource="classpath*:hydra-hbase.xml" />
+    <!-- 选择存储方式为mysql -->
+    <!--<import resource="classpath*:hydra-mysql.xml" />-->
+
+    <context:property-placeholder location="classpath:conf.properties"/>
+
+    <bean id="collectorService" class="com.jd.bdp.hydra.collector.service.CollectorSerService" >
+        <property name="topic" value="${metaq.topic}"></property>
+    </bean>
+
+
+    <bean id="sessionFactory" class="com.taobao.metamorphosis.client.MetaMessageSessionFactory">
+        <constructor-arg>
+            <bean class="com.taobao.metamorphosis.client.MetaClientConfig">
+                <property name="zkConfig">
+                    <bean class="com.taobao.metamorphosis.utils.ZkUtils.ZKConfig">
+                        <constructor-arg>
+                            <value>${metaq.zk.address}</value>
+                        </constructor-arg>
+                        <constructor-arg>
+                            <value>30000</value>
+                        </constructor-arg>
+                        <constructor-arg>
+                            <value>30000</value>
+                        </constructor-arg>
+                        <constructor-arg>
+                            <value>5000</value>
+                        </constructor-arg>
+                    </bean>
+                </property>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <bean id ="producer" class="com.taobao.metamorphosis.client.producer.SimpleMessageProducer" factory-bean="sessionFactory"
+          factory-method="createProducer">
+    </bean>
+    <bean id ="consumer" class="com.taobao.metamorphosis.client.consumer.SimpleMessageConsumer" factory-bean="sessionFactory"
+          factory-method="createConsumer">
+        <constructor-arg>
+            <bean class="com.taobao.metamorphosis.client.consumer.ConsumerConfig">
+                <!--  group name -->
+                <constructor-arg type="java.lang.String" value="meta-example"/>
+                <!--  other options -->
+                <property name="maxDelayFetchTimeInMills" value="${metaq.consumer.maxDelayFetchTimeInMills}"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+</beans>

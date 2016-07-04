@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
+	
+	<listener>
+    	<listener-class>com.alibaba.dubbo.remoting.http.servlet.BootstrapListener</listener-class>
+    </listener>
+	<listener>
+		<listener-class>com.sinoservices.xframework.core.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>recordLog</filter-name>
+		<filter-class>com.sinoservices.trace.filter.MonitorFilter</filter-class>
+		<init-param>
+			<param-name>urlPattern</param-name>
+			<param-value>.*\.[s]{0,1}html.*</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>recordLog</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>mvc</filter-name>
+		<filter-class>com.sinoservices.xframework.core.web.WebFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>mvc</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+
+
+
+	<session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>   
+    
+    <welcome-file-list>
+        <welcome-file>doppler/view/index.shtml</welcome-file>
+    </welcome-file-list>
+</web-app>
