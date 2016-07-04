@@ -9,7 +9,7 @@ doppler系统是在开源软件jd-hydra的基础上二次开发形成的日志�
 * 每天请求量在6000万以下的中小型项目;
 
 #整体架构图
-![整体架构图](https://raw.githubusercontent.com/fxltsbl3855/doppler/pic_for_readme/arch.png)
+![整体架构图](https://raw.githubusercontent.com/fxltsbl3855/doppler/master/pic_for_readme/arch.png)
 
 #日志收集步骤介绍
 * Hydra-client异步发送异常/日志到hydra-collector/hydra-manager
