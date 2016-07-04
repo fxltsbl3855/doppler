@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sinoservices</groupId>
+    <artifactId>doppler-facade</artifactId>
+    <version>1.0</version>
+    <name>DOPPLER FACADE</name>
+
+
+    <!-- 配置远程发布到私服，mvn deploy -->
+    <distributionManagement>
+    <repository>
+    <id>thirdparty</id>
+    <url>http://192.168.0.109:8081/nexus/content/repositories/thirdparty/</url>
+    </repository>
+    </distributionManagement>
+
+    <properties>
+        <dubbo.version>2.8.1</dubbo.version>
+        <sinoservices_common>1.0</sinoservices_common>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sinoservices</groupId>
+            <artifactId>sinoservices-common</artifactId>
+            <version>${sinoservices_common}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${dubbo.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>
