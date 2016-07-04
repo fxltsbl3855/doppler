@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright jd
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinoservices.doppler.dao.ReqStatMapper">
+
+    <resultMap id="reqStatResultMap" type="ReqStatDB">
+    </resultMap>
+
+    <select id="getReqNumByHour" parameterType="java.util.Map" resultMap="reqStatResultMap" >
+        select r.logTime logTime,sum(r.reqNum) reqNum,sum(r.timeoutNum) timeoutNum,sum(r.errorNum) errorNum,max(r.duration) duration
+        from req_stat r where serviceId=#{serviceId} and r.logTime>=#{startDate} and r.logTime &lt; #{endDate} and r.method=#{method}
+        group by r.logTime
+    </select>
+
+    <select id="getMethodStat" parameterType="java.util.Map" resultMap="reqStatResultMap" >
+        select r.serviceId serviceId,r.method method,sum(r.reqNum) reqNum,sum(r.timeoutNum) timeoutNum,sum(r.errorNum) errorNum,max(r.duration) duration
+        from req_stat r where serviceId=#{serviceId} and r.logTime>=#{startDate} and r.logTime &lt; #{endDate}  group by r.serviceId,r.method
+    </select>
+
+    <select id="getWebAppReqStat" parameterType="java.util.Map" resultMap="reqStatResultMap" >
+        select r.appId appId,a.NAME appName,sum(r.reqNum) reqNum,sum(r.timeoutNum) timeoutNum,sum(r.errorNum) errorNum,max(r.duration) duration
+        from req_stat r,TB_PARA_APP a where r.appType=1 and r.logTime>=#{startDate} and r.logTime &lt; #{endDate}
+        and r.appId=a.ID group by r.appId
+    </select>
+
+    <select id="getServerAppReqStat" parameterType="java.util.Map" resultMap="reqStatResultMap" >
+        select serviceId serviceId,sum(r.reqNum) reqNum,sum(r.timeoutNum) timeoutNum,sum(r.errorNum) errorNum,max(r.duration) duration
+        from req_stat r where r.appType=2 and r.logTime>=#{startDate} and r.logTime &lt; #{endDate}
+        group by serviceId
+    </select>
+
+    <select id="getWebAppReqStatService" parameterType="java.util.Map" resultMap="reqStatResultMap" >
+        select r.appId appId,a.NAME appName,sum(r.reqNum) reqNum
+        from req_stat_service r,TB_PARA_APP a where r.appType=1 and r.appId=a.ID group by r.appId
+    </select>
+
+    <select id="getServerAppReqStatService" parameterType="java.util.Map" resultMap="reqStatResultMap" >
+        select serviceId serviceId,sum(r.reqNum) reqNum
+        from req_stat_service r where r.appType=2  group by serviceId
+    </select>
+</mapper>

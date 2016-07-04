@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright jd
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinoservices.doppler.dao.AnnotationMapper">
+
+    <resultMap id="ServiceAppResultMap" type="ServiceAppDB">
+    </resultMap>
+    <resultMap id="AnnoWebAppResultMap" type="AnnoWebAppDB">
+    </resultMap>
+    <resultMap id="AnnoServiceResultMap" type="AnnoServiceDB">
+        <result property="appName" column="k" />
+    </resultMap>
+    <resultMap id="AnnoSpanResultMap" type="AnnoSpanDB">
+    </resultMap>
+    <resultMap id="AnnoAppResultMap" type="AnnoAppDB">
+    </resultMap>
+    <resultMap id="AnnotationWebResultMap" type="AnnotationWebDB"/>
+    <resultMap id="AnnotationResultMap" type="AnnotationDB"/>
+
+    <select id="getAnnotationsBySpanId" parameterType="Long" resultMap="AnnotationResultMap">
+        select id,k,value,ip,port,timestamp,duration,spanId,traceId,service  from annotation a where a.spanId=#{spanId}
+    </select>
+    <select id="getAnnotationsWebBySpanId" parameterType="java.util.Map" resultMap="AnnotationWebResultMap">
+        select id,k,value,ip,port,timestamp,duration,spanId,traceId,appId,serviceId,appName,serviceName  from annotation_web a where a.spanId=#{spanId}
+    </select>
+    <select id="getAnnoNumByServiceTimeK" parameterType="java.util.Map" resultMap="AnnoSpanResultMap">
+        select  count(1)  num,s.name spanName from annotation a,span s
+        where a.service in (${serviceIds}) and a.`timestamp` >= #{startTime} AND a.`timestamp` &lt; #{endTime} and a.k=#{k}  and s.spanId=a.spanId  group by s.name;
+    </select>
+
+    <select id="getAnnoAppByTimeK" parameterType="java.util.Map" resultMap="AnnoAppResultMap">
+        select p.ID appId,p.NAME appName,count(1) num from annotation a,TB_PARA_SERVICE t,TB_PARA_APP p
+        WHERE a.`timestamp` >= #{startTime} AND a.`timestamp` &lt; #{endTime} and a.k=#{k} and a.service=t.ID and t.APP_ID=p.ID group by p.ID
+    </select>
+    <select id="getAnnoService" parameterType="java.util.Map" resultMap="AnnoServiceResultMap">
+        select  a.service serviceId,count(1) num from annotation a where a.`timestamp` >= #{startTime} AND a.`timestamp` &lt; #{endTime} and a.k=#{k}  group by service
+    </select>
+
+    <select id="getServiceAppByReverseId" parameterType="java.util.Map" resultMap="ServiceAppResultMap">
+        select s.ID serviceId,s1.ID cserviceId,s.APP_ID appId,a.NAME appName from TB_PARA_SERVICE s,(select ID,NAME from TB_PARA_SERVICE where ID in (${ids}))
+        s1,TB_PARA_APP  a where s.name=s1.name and s.INVOKE_ROLE=2 and s.APP_ID=a.ID;
+    </select>
+
+    <select id="getAnnoWebApp" parameterType="java.util.Map" resultMap="AnnoWebAppResultMap">
+        select a.appId appId,a.appName appName,count(1) num from annotation_web a WHERE a.`timestamp` >= #{startTime} AND a.`timestamp` &lt; #{endTime} and k='sr' group by a.appId,a.appName
+    </select>
+
+    <select id="getAnnoSpan" parameterType="java.util.Map" resultMap="AnnoSpanResultMap">
+        select s.name spanName,t.ID serviceId,t.NAME serviceName,count(1) num,max(duration) maxDuration from annotation a force index(index_timestamp),span s,TB_PARA_SERVICE t WHERE a.`timestamp` >= #{startTime} AND a.`timestamp` &lt; #{endTime} and a.k=#{k}
+        and a.spanId=s.spanId and a.service=t.ID and t.APP_ID=#{appId}
+        <if test="serviceId!=null and serviceId!=''"> and a.service=#{serviceId} </if>
+        <if test="method!=null and method!=''"> and s.name=#{method} </if>
+        group by a.service,s.name
+    </select>
+    <select id="getAnnoSpanWeb" parameterType="java.util.Map" resultMap="AnnoSpanResultMap">
+       select serviceId serviceId,serviceName serviceName,count(1) num  ,max(duration) maxDuration  from annotation_web a where a.appId=#{appId} and a.`timestamp` >= #{startTime} AND a.`timestamp` &lt; #{endTime} and a.k=#{k}
+        <if test="serviceId!=null and serviceId!=''"> and a.serviceId=#{serviceId} </if>
+        group by serviceName,serviceId
+    </select>
+
+    <select id="getAnnoApp" parameterType="java.util.Map" resultMap="AnnoAppResultMap">
+        select p.ID appId,p.NAME appName,count(1) num from annotation a ,TB_PARA_APP p ,TB_PARA_SERVICE s where a.k='sr' and a.service=s.ID and s.APP_ID=p.ID group by p.ID,p.Name
+    </select>
+    <select id="getAnnoAppWeb" parameterType="java.util.Map" resultMap="AnnoAppResultMap">
+        select a.appId appId,a.appName appName,count(1) num from annotation_web a  where a.k='sr' group by a.appId,a.appName
+    </select>
+
+</mapper>

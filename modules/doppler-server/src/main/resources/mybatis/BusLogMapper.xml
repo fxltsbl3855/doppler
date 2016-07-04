@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright jd
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinoservices.doppler.dao.BusLogMapper">
+
+    <resultMap id="busLogResultMap" type="BusLogDB">
+    </resultMap>
+
+
+    <insert id="insertBusLogDB" parameterType="BusLogDB" >
+        INSERT INTO bus_log (addr,spanId,traceId,appId,serviceId,logInfo,logType,errorType,logTime)
+        VALUES(#{addr},#{spanId},#{traceId},#{appId},#{serviceId},#{logInfo},#{logType},#{errorType},#{logTime})
+    </insert>
+
+    <select id="getBusLogDBListByParam" parameterType="java.util.Map" resultMap="busLogResultMap" >
+        select b.id id,b.addr addr,b.spanId spanId,b.traceId traceId,b.logTime logTime,b.logInfo logInfo,b.errorType errorType,b.logType logType,b.serviceId serviceId,b.appId appId,s.NAME serviceName,a.NAME appName
+        from bus_log b,TB_PARA_SERVICE s,TB_PARA_APP a  where logTime>=#{startTime} and logTime&lt;=#{endTime}
+        <if test="appId>0"> and appId=#{appId} </if>
+        <if test="serviceId>0"> and serviceId=#{serviceId} </if>
+        <if test="errorType>0"> and errorType=#{errorType} </if>
+        <if test="logType>0"> and logType=#{logType} </if>
+        <if test="logInfo!=null and logInfo!=''"> and  MATCH(addr,logInfo) AGAINST(#{logInfo}) </if>
+        and b.serviceId=s.ID and b.appId=a.ID limit 50
+    </select>
+
+    <select id="getBusLogById" parameterType="java.util.Map" resultMap="busLogResultMap" >
+        select b.id id,b.addr addr,b.spanId spanId,b.traceId traceId,b.appId appId,b.serviceId serviceId,b.logInfo logInfo,b.logType logType,b.errorType errorType,b.logTime logTime from bus_log b
+        where b.id=#{id}
+    </select>
+
+</mapper>
