@@ -6,8 +6,8 @@
 
 #适合场景
 * 适合基于`dubbo`开发的分布式服务项目的监控;
-* `QPS`不超过6000万的中小型项目;
-* 对日志需要检索
+* 每天请求量不超过6000万的中小型项目;
+* 对日志需要检索的场景
 
 #整体架构图
 ![整体架构图](https://raw.githubusercontent.com/fxltsbl3855/doppler/master/pic_for_readme/arch.png)
