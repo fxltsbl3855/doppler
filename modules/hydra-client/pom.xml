@@ -15,6 +15,10 @@
     <packaging>jar</packaging>
     <name>HYDRA CLIENT</name>
 
+    <properties>
+        <spring.version>4.0.2.RELEASE</spring.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.jd.bdp</groupId>
@@ -37,6 +41,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
