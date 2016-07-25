@@ -61,7 +61,6 @@ public class ServerProcess {
                         List<String> hostList = zk.getChildren(path+Constant.ZK_PATH_DELIMITER + serviceNode +
                                 Constant.ZK_PATH_DELIMITER + Constant.PROVIDERS, true);
                         if(hostList == null || hostList.size()==0){
-                            logger.warn("url of provider is not generated,ingored,serviceNode="+serviceNode);
                             continue;
                         }
                         ServerRegDB sRegDB = new ServerRegDB();
