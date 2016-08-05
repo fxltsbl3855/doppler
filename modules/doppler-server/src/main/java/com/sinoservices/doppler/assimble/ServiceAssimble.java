@@ -26,7 +26,7 @@ public class ServiceAssimble {
             map1 = new HashMap<Integer, AppStatBo>();
         }
         if(map2 == null){
-            map1 = new HashMap<Integer, AppStatBo>();
+            map2 = new HashMap<Integer, AppStatBo>();
         }
         for(Map.Entry<Integer, AppStatBo> entry: map2.entrySet()){
            if(!map1.containsKey(entry.getKey())){

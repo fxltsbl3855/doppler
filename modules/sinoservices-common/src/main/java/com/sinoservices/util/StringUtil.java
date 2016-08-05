@@ -391,6 +391,10 @@ public class StringUtil {
         return (str == null) ? "" : str;
     }
 
+    public static String replaceNullByDefault(String str,String defaultValue) {
+        return (str == null || "".equals(str.trim())) ? defaultValue : str;
+    }
+
     /**
      * 将null替换成想要的值
      *

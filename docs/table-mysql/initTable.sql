@@ -109,26 +109,6 @@ CREATE TABLE `bus_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-#报警配置表
-CREATE TABLE `alarm_conf` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `appId` int(11) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL,
-  `email` varchar(2048) DEFAULT NULL,
-  `phone` varchar(100) DEFAULT NULL,
-  `errorType` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-#报警记录
-CREATE TABLE `alarm_record` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `budLogId` int(11) DEFAULT NULL,
-  `lockStatus` int(11) DEFAULT NULL,
-  `alarmTime` bigint(128) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
 #请求数据方法汇总表
 CREATE TABLE `req_stat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
