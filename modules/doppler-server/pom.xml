@@ -24,17 +24,11 @@
         <gson_version>2.1</gson_version>
         <gson_version>2.1</gson_version>
         <metrics_version>3.0.1</metrics_version>
-        <hydra_client_version>1.0</hydra_client_version>
         <sinoservices_common>1.0</sinoservices_common>
     </properties>
 
     <dependencies>
         <!--dubbo,日志统计依赖-->
-        <dependency>
-            <groupId>com.jd.bdp</groupId>
-            <artifactId>hydra-client</artifactId>
-            <version>${hydra_client_version}</version>
-        </dependency>
         <dependency>
             <groupId>com.sinoservices</groupId>
             <artifactId>sinoservices-common</artifactId>

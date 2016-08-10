@@ -45,8 +45,6 @@
 		<jetty.version>7.6.13.v20130916</jetty.version>
 		<h2.version>1.3.174</h2.version>
 		<zkclient.version>0.4</zkclient.version>
-	  	<hydra_client.version>1.0</hydra_client.version>
-	    <hydra_client_web.version>1.0</hydra_client_web.version>
 	  <sinoservices_common>1.0</sinoservices_common>
 		<!-- plugin的属性 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,16 +63,6 @@
            <version>${doppler_facade.version}</version>
       </dependency>
 	  <!--dubbo,日志统计依赖-->
-	  <dependency>
-		  <groupId>com.jd.bdp</groupId>
-		  <artifactId>hydra-client</artifactId>
-		  <version>${hydra_client.version}</version>
-	  </dependency>
-	  <dependency>
-		  <groupId>com.sinoservices</groupId>
-		  <artifactId>hydra-client-web</artifactId>
-		  <version>${hydra_client_web.version}</version>
-	  </dependency>
 	  <dependency>
 		  <groupId>com.101tec</groupId>
 		  <artifactId>zkclient</artifactId>

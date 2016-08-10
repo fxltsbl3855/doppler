@@ -1,5 +1,6 @@
 package com.sinoservices.util;
 
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,8 @@ public class JsonUtils {
     }
 
     public static String object2Json(Object objectClass) {
-        String jsonStr = new Gson().toJson(objectClass);
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        String jsonStr = gson.toJson(objectClass);
         return jsonStr;
     }
 

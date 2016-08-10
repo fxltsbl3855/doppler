@@ -175,7 +175,7 @@ public class DateUtil {
         try {
             return formatter.parse(str);
         } catch (ParseException e) {
-            return new Date();
+            return null;
         } catch (IllegalArgumentException e) {
             System.out.println("format string Illegal:" + formatString);
             return null;
