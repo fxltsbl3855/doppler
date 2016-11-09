@@ -1,7 +1,5 @@
 package com.sinoservices.doppler.service.impl;
 
-import com.alibaba.dubbo.rpc.RpcContext;
-import com.jd.bdp.hydra.HydraConstants;
 import com.sinoservices.doppler.assimble.ServiceAssimble;
 import com.sinoservices.doppler.bo.*;
 import com.sinoservices.doppler.dao.AnnotationMapper;

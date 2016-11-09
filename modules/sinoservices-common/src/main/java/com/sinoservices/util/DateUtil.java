@@ -3,10 +3,7 @@ package com.sinoservices.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +15,23 @@ public class DateUtil {
 	private static Logger log = LoggerFactory.getLogger(DateUtil.class);
 
 
+    public static String localDateToUTCStr(Date date,String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String time = sdf.format(date);
+        return time;
+    }
+
+    public static Date utcStrToLocalDate(String str) {
+        //String str = "2016-08-06T16:27:32.027Z";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            return formatter.parse(str);
+        } catch (Exception var4) {
+            return null;
+        }
+    }
 
 	/**
 	 * 去掉endDate中的尾巴（时、分、秒）
@@ -90,7 +104,7 @@ public class DateUtil {
 
 
     public static void main(String[] a){
-        System.out.println(stirng2Date("","yyyy-MM-dd"));
+        System.out.println(getNewDate(new Date(),-7));
     }
 
     public final static String DefaultShortFormat = "yyyy-MM-dd";
@@ -474,6 +488,13 @@ public class DateUtil {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(date.getTime());
         cal.add(field, value);
+        return cal.getTime();
+    }
+
+    public static Date getNewDate(Date date, int value) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date.getTime());
+        cal.add(Calendar.DAY_OF_YEAR, value);
         return cal.getTime();
     }
 

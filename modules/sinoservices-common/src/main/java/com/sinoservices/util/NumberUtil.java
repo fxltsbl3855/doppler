@@ -12,6 +12,12 @@ import java.text.DecimalFormat;
  */
 public class NumberUtil {
 
+    public static int getRandom(int length){
+        int squar = length - 1;
+        double lengthValue = Math.pow(10D,squar);
+        return (int)((Math.random()*9+1)*lengthValue);
+    }
+
     public static double formatPrice(Double str,Integer scaleNum ) {
         try {
             BigDecimal b = new BigDecimal(str);
@@ -101,6 +107,19 @@ public class NumberUtil {
         }
     }
 
+    public static double devide(Long value,Long value2,int pointNum) {
+        if(value == null){
+            value=0L;
+        }
+        if(value2 == null || value2 ==0){
+            return 0;
+        }
+        double v = value.doubleValue();
+        v= v/value2.doubleValue();
+        BigDecimal   b   =   new   BigDecimal(v);
+        return b.setScale(pointNum,   BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
     public static double devide(Integer value,Integer value2,int pointNum) {
         if(value == null){
             value=0;
@@ -108,7 +127,7 @@ public class NumberUtil {
         if(value2 == null || value2 ==0){
             return 0;
         }
-        double v = value;
+        double v = value.doubleValue();
         v= v/value2;
         BigDecimal   b   =   new   BigDecimal(v);
         return b.setScale(pointNum,   BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -148,7 +167,7 @@ public class NumberUtil {
 
     public static void main(String[] a) {
 
-        System.out.println(devide(2,3,2));
+        System.out.println(getRandom(3));
 
 
     }
